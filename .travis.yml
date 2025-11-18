@@ -1,0 +1,17 @@
+language: generic
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t unshesh/react-test -f ./client/Dockerfile.dev ./client
+
+script:
+  - docker run -e CI=true unshesh/react-test npm test
+
+after_success:
+  - docker build -t unshesh/multi-client ./client
+  - docker build -t unshesh/multi-nginx ./nginx
+  - docker build -t unshesh/multi-server ./server
+  - docker build -t unshesh/multi-worker ./worker
+
