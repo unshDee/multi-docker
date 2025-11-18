@@ -15,3 +15,9 @@ after_success:
   - docker build -t unshesh/multi-server ./server
   - docker build -t unshesh/multi-worker ./worker
 
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+
+  - docker push unshesh/multi-client
+  - docker push unshesh/multi-nginx
+  - docker push unshesh/multi-server
+  - docker push unshesh/multi-worker
