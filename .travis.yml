@@ -10,14 +10,14 @@ script:
   - docker run -e CI=true unshesh/react-test npm test
 
 after_success:
-  - docker build -t unshesh/multi-client ./client
-  - docker build -t unshesh/multi-nginx ./nginx
-  - docker build -t unshesh/multi-server ./server
-  - docker build -t unshesh/multi-worker ./worker
+  - docker build -t $DOCKER_ID/multi-client ./client
+  - docker build -t $DOCKER_ID/multi-nginx ./nginx
+  - docker build -t $DOCKER_ID/multi-server ./server
+  - docker build -t $DOCKER_ID/multi-worker ./worker
 
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
 
-  - docker push unshesh/multi-client
-  - docker push unshesh/multi-nginx
-  - docker push unshesh/multi-server
-  - docker push unshesh/multi-worker
+  - docker push $DOCKER_ID/multi-client
+  - docker push $DOCKER_ID/multi-nginx
+  - docker push $DOCKER_ID/multi-server
+  - docker push $DOCKER_ID/multi-worker
